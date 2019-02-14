@@ -28,8 +28,7 @@ HornFam.prototype.render = function() {
   hornClone.find('p').text(this.description);
 
   hornClone.removeClass('clone');
-  hornClone.attr('class', this.title);
-
+  hornClone.attr('class', this.keyword);
 }
 
 HornFam.prototype.dropDown = function() {
@@ -61,6 +60,14 @@ HornFam.loadHornyThings = () => {
     return obj.dropDown();
   })
 }
+
+$('select').on('change', function() {
+  // Create JQ variable that = this.val
+  let $selection = $(this).val();
+  console.log($selection);
+  $('div').hide();
+  $(`div[class="${$selection}"]`).show();
+})
 
 //On page load, read json file
 $(() => HornFam.readJson());
