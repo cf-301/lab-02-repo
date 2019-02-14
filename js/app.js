@@ -45,7 +45,6 @@ HornFam.readJson = () => {
 // Renders each object from the object array
 HornFam.loadHornyThings = () => {
   HornFam.allHornyThings.forEach(obj => {
-    console.log(obj);
     return obj.render();
   });
 }
