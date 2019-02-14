@@ -40,7 +40,7 @@ HornFam.prototype.dropDown = function() {
 
 // Reads and creates the objects from the json file and pushes objects into array
 HornFam.readJson = () => {
-  $.get('../data/page-1.json', 'json')
+  $.get('./data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
         HornFam.allHornyThings.push(new HornFam(obj));
