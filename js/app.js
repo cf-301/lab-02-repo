@@ -11,6 +11,9 @@ function HornFam(obj){
 //Object array
 HornFam.allHornyThings = [];
 
+// Keyword array
+HornFam.keywordArray = [];
+
 //Renders the object to the page
 HornFam.prototype.render = function() {
   $('main').append('<div class="clone"></div>');
@@ -25,8 +28,14 @@ HornFam.prototype.render = function() {
   hornClone.find('p').text(this.description);
 
   hornClone.removeClass('clone');
-  hornClone.attr('class', this.title);
+  hornClone.attr('class', this.keyword);
+}
 
+HornFam.prototype.dropDown = function() {
+  if (!HornFam.keywordArray.includes(this.keyword)) {
+    HornFam.keywordArray.push(this.keyword);
+    $('select').append(`<option value="${this.keyword}">${this.keyword}</option>`);
+  } 
 }
 
 // Reads and creates the objects from the json file and pushes objects into array
@@ -45,10 +54,20 @@ HornFam.readJson = () => {
 // Renders each object from the object array
 HornFam.loadHornyThings = () => {
   HornFam.allHornyThings.forEach(obj => {
-    console.log(obj);
     return obj.render();
   });
+  HornFam.allHornyThings.forEach(obj => {
+    return obj.dropDown();
+  })
 }
+
+$('select').on('change', function() {
+  // Create JQ variable that = this.val
+  let $selection = $(this).val();
+  console.log($selection);
+  $('div').hide();
+  $(`div[class="${$selection}"]`).show();
+})
 
 //On page load, read json file
 $(() => HornFam.readJson());
