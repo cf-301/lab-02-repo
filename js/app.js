@@ -47,7 +47,7 @@ HornFam.readJson = () => {
       })
     })
 
-    //Renders to the page
+    //Renders to the page 
     .then(HornFam.loadHornyThings);
 }
 
@@ -67,6 +67,9 @@ $('select').on('change', function() {
   console.log($selection);
   $('div').hide();
   $(`div[class="${$selection}"]`).show();
+  if($selection === 'default'){
+    $('div').show();
+  }
 })
 
 //On page load, read json file

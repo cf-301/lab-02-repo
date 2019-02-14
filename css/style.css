@@ -1,0 +1,22 @@
+div {
+  height: 400px;
+  width: 300px;
+  flex: left;
+  margin: 10px;
+  text-align: center;
+}
+img{
+  height:300px;
+  width:300px;
+}
+#default-template {
+  height:0px;
+  width:0px;
+}
+main{
+  display:flex;
+  flex-wrap: wrap;
+}
+body {
+  font-family: 'Aleo';font-size: 22px;
+}
