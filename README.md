@@ -22,9 +22,9 @@ Actual time needed to complete: 1h 55min
 
 ## Feature 3: Style the Application
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 30 min
 
-Start time: 
+Start time: 11:55
 
 Finish time:
 
