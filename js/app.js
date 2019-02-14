@@ -11,6 +11,9 @@ function HornFam(obj){
 //Object array
 HornFam.allHornyThings = [];
 
+// Keyword array
+HornFam.keywordArray = [];
+
 //Renders the object to the page
 HornFam.prototype.render = function() {
   $('main').append('<div class="clone"></div>');
@@ -29,6 +32,13 @@ HornFam.prototype.render = function() {
 
 }
 
+HornFam.prototype.dropDown = function() {
+  if (!HornFam.keywordArray.includes(this.keyword)) {
+    HornFam.keywordArray.push(this.keyword);
+    $('select').append(`<option value="${this.keyword}">${this.keyword}</option>`);
+  } 
+}
+
 // Reads and creates the objects from the json file and pushes objects into array
 HornFam.readJson = () => {
   $.get('/data/page-1.json', 'json')
@@ -45,9 +55,11 @@ HornFam.readJson = () => {
 // Renders each object from the object array
 HornFam.loadHornyThings = () => {
   HornFam.allHornyThings.forEach(obj => {
-    console.log(obj);
     return obj.render();
   });
+  HornFam.allHornyThings.forEach(obj => {
+    return obj.dropDown();
+  })
 }
 
 //On page load, read json file
