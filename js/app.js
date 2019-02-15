@@ -62,7 +62,7 @@ HornFam.readJson = () => {
   $.get('./data/page-2.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        HornFam.allHornyThings.push(new HornFam(obj));
+        HornFam.allHornyThings2.push(new HornFam(obj));
       })
     })
 }
@@ -104,10 +104,12 @@ $('#page').on('change', function(){
   //Current clear that may or may not work
   HornFam.clearElements();
   let $selection = $(this).val();
-  // if page 1 load page 1
-  // HornFam.loadHornyThings(all);
-  // if page 2 load page 2
-  // HornFam.loadHornyThings(2);
+  if($selection === "1"){
+    HornFam.loadHornyThings1(HornFam.allHornyThings1)
+  }
+  else{
+    HornFam.loadHornyThings1(HornFam.allHornyThings2)
+  }
 })
 
 //On page load, read json file
