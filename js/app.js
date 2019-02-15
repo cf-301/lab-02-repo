@@ -1,15 +1,17 @@
 'use-strict';
 
-function HornFam(obj){
+function HornFam(obj, file){
   this.title = obj.title;
   this.image_url = obj.image_url;
   this.description = obj.description;
   this.keyword = obj.keyword;
   this.horns = obj.horns;
+  this.file = file;
 }
 
 //Object array
-HornFam.allHornyThings = [];
+HornFam.allHornyThings1 = [];
+HornFam.allHornyThings2 = [];
 
 // Keyword array
 HornFam.keywordArray = [];
@@ -31,10 +33,16 @@ HornFam.prototype.render = function() {
   hornClone.attr('class', this.keyword);
 }
 
+//Clears images | opposite of render
+HornFam.clearElements = () => {
+  $('#photo-template').siblings().remove();
+  $('#default').siblings().remove();
+}
+
 HornFam.prototype.dropDown = function() {
   if (!HornFam.keywordArray.includes(this.keyword)) {
     HornFam.keywordArray.push(this.keyword);
-    $('select').append(`<option value="${this.keyword}">${this.keyword}</option>`);
+    $('#keyword').append(`<option value="${this.keyword}">${this.keyword}</option>`);
   } 
 }
 
@@ -43,25 +51,35 @@ HornFam.readJson = () => {
   $.get('./data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        HornFam.allHornyThings.push(new HornFam(obj));
+        HornFam.allHornyThings1.push(new HornFam(obj));
       })
     })
 
     //Renders to the page 
-    .then(HornFam.loadHornyThings);
+    .then(HornFam.loadHornyThings(HornFam.allHornyThings1));
+
+  //Json 2
+  $.get('./data/page-2.json', 'json')
+    .then(data => {
+      data.forEach(obj => {
+        HornFam.allHornyThings2.push(new HornFam(obj));
+      })
+    })
 }
 
 // Renders each object from the object array
-HornFam.loadHornyThings = () => {
-  HornFam.allHornyThings.forEach(obj => {
+
+HornFam.loadHornyThings = (arr) => {
+
+  arr.forEach(obj => {
     return obj.render();
   });
-  HornFam.allHornyThings.forEach(obj => {
+  arr.forEach(obj => {
     return obj.dropDown();
   })
 }
 
-$('select').on('change', function() {
+$('#keyword').on('change', function() {
   // Create JQ variable that = this.val
   let $selection = $(this).val();
   console.log($selection);
@@ -72,5 +90,19 @@ $('select').on('change', function() {
   }
 })
 
+$('#page').on('change', function(){
+  //Current clear that may or may not work
+  HornFam.clearElements();
+  let $selection = $(this).val();
+  if($selection === '1'){
+    HornFam.loadHornyThings(HornFam.allHornyThings1);
+  }
+  else{
+    HornFam.loadHornyThings(HornFam.allHornyThings2);
+  }
+})
+
 //On page load, read json file
 $(() => HornFam.readJson());
+
+

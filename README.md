@@ -26,6 +26,18 @@ Estimate of time needed to complete: 30 min
 
 Start time: 11:55
 
+Finish time: 12:30
+
+Actual time needed to complete: 35 min
+
+
+-------------------------------------------
+Day 2
+
+Estimate of time needed to complete: 50 min
+
+Start time: 9:08
+
 Finish time:
 
 Actual time needed to complete: 
