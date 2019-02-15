@@ -10,7 +10,7 @@ function HornFam(obj, file){
 }
 
 //Object array
-HornFam.allHornyThings = [];
+HornFam.allHornyThings1 = [];
 HornFam.allHornyThings2 = [];
 
 // Keyword array
@@ -51,30 +51,30 @@ HornFam.readJson = () => {
   $.get('./data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        HornFam.allHornyThings.push(new HornFam(obj));
+        HornFam.allHornyThings1.push(new HornFam(obj));
       })
     })
 
     //Renders to the page 
-    .then(HornFam.loadHornyThings);
+    .then(HornFam.loadHornyThings(HornFam.allHornyThings1));
 
   //Json 2
   $.get('./data/page-2.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        HornFam.allHornyThings.push(new HornFam(obj));
+        HornFam.allHornyThings2.push(new HornFam(obj));
       })
     })
 }
 
 // Renders each object from the object array
 
-HornFam.loadHornyThings = () => {
+HornFam.loadHornyThings = (arr) => {
 
-  HornFam.allHornyThings.forEach(obj => {
+  arr.forEach(obj => {
     return obj.render();
   });
-  HornFam.allHornyThings.forEach(obj => {
+  arr.forEach(obj => {
     return obj.dropDown();
   })
 }
@@ -94,10 +94,12 @@ $('#page').on('change', function(){
   //Current clear that may or may not work
   HornFam.clearElements();
   let $selection = $(this).val();
-  // if page 1 load page 1
-  // HornFam.loadHornyThings(1);
-  // if page 2 load page 2
-  // HornFam.loadHornyThings(2);
+  if($selection === '1'){
+    HornFam.loadHornyThings(HornFam.allHornyThings1);
+  }
+  else{
+    HornFam.loadHornyThings(HornFam.allHornyThings2);
+  }
 })
 
 //On page load, read json file
