@@ -1,12 +1,11 @@
 'use-strict';
 
-function HornFam(obj, file){
+function HornFam(obj){
   this.title = obj.title;
   this.image_url = obj.image_url;
   this.description = obj.description;
   this.keyword = obj.keyword;
   this.horns = obj.horns;
-  this.file = file;
 }
 
 //Object array
@@ -37,6 +36,7 @@ HornFam.prototype.render = function() {
 HornFam.clearElements = () => {
   $('#photo-template').siblings().remove();
   $('#default').siblings().remove();
+  HornFam.keywordArray = [];
 }
 
 HornFam.prototype.dropDown = function() {
@@ -56,7 +56,7 @@ HornFam.readJson = () => {
     })
 
     //Renders to the page 
-    .then(HornFam.loadHornyThings(HornFam.allHornyThings1));
+    .then(HornFam.loadHornyThings);
 
   //Json 2
   $.get('./data/page-2.json', 'json')
@@ -69,7 +69,17 @@ HornFam.readJson = () => {
 
 // Renders each object from the object array
 
-HornFam.loadHornyThings = (arr) => {
+HornFam.loadHornyThings = () => {
+
+  HornFam.allHornyThings1.forEach(obj => {
+    return obj.render();
+  });
+  HornFam.allHornyThings1.forEach(obj => {
+    return obj.dropDown();
+  })
+}
+
+HornFam.loadHornyThings1 = (arr) => { 
 
   arr.forEach(obj => {
     return obj.render();
@@ -94,11 +104,11 @@ $('#page').on('change', function(){
   //Current clear that may or may not work
   HornFam.clearElements();
   let $selection = $(this).val();
-  if($selection === '1'){
-    HornFam.loadHornyThings(HornFam.allHornyThings1);
+  if($selection === "1"){
+    HornFam.loadHornyThings1(HornFam.allHornyThings1)
   }
   else{
-    HornFam.loadHornyThings(HornFam.allHornyThings2);
+    HornFam.loadHornyThings1(HornFam.allHornyThings2)
   }
 })
 
